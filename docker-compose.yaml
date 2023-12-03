@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: restaurante-universitario
+    container_name: restaurante-universitario
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: restaurante-universitario
+      SERVICE_TAGS: dev
+      DATABASE_URL: postgresql://ru.cefetmg.vga:BKPdESWm6b8j@ep-sweet-disk-96296158.us-east-2.aws.neon.tech/ru_cefetmg?sslmode=require
+      DB_CONNECTION: pgsql
+      APP_KEY: base64:DmgjUw52G/NzkM2A80Ilv629e/qx9O+n8TTzue9AuFo=
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./storage:/var/www/html/storage
+    networks:
+      - app-network
+    ports:
+      - 8080:8080
+
+networks:
+  app-network:
+    driver: bridge
