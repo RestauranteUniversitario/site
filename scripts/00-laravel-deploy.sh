@@ -6,14 +6,26 @@ composer install --no-dev --working-dir=/var/www/html
 echo "Caching config..."
 php artisan config:cache
 
+
 echo "Caching routes..."
 php artisan route:cache
 
-echo "Running migrations..."
-php artisan migrate
 
-echo "Running Storage:link..."
+echo "Loading pictures..."
 php artisan storage:link
 
-echo "Populated Database..."
-php artisan db:seed
+
+echo "Running migrations..."
+php artisan migrate --force
+
+
+echo "Add data..."
+php artisan db:seed --class=DatabaseSeeder
+
+
+echo "Run Serve"
+php artisan serve --show
+
+
+echo "Run Key"
+php artisan key:generate --show
